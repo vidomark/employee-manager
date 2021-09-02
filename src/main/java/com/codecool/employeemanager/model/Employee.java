@@ -1,6 +1,7 @@
 package com.codecool.employeemanager.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Employee implements Serializable {
 
     @Id
@@ -21,6 +23,6 @@ public class Employee implements Serializable {
     private String email;
     private String phoneNumber;
     private String imageUrl;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     private JobTitle jobTitle;
 }

@@ -1,5 +1,6 @@
 package com.codecool.employeemanager.service;
 
+import com.codecool.employeemanager.exception.EmployeeNotFoundException;
 import com.codecool.employeemanager.model.Employee;
 import com.codecool.employeemanager.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,20 +29,38 @@ public class EmployeeService {
 
     public Employee findEmployee(Long id) {
         if (id == null) {
-            throw new RuntimeException("Employee id must not be null");
+            throw new RuntimeException("Employee ID must not be null");
         }
 
         return employeeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("Employee not found with %s", id)));
+                .orElseThrow(() -> new EmployeeNotFoundException(String.format("Employee not found with ID %s!", id)));
     }
 
-    public void updateEmployee() {
-        // TODO: Implement
+    public Employee updateEmployee(Employee employee) {
+        Long id = employee.getId();
+        if (id == null) {
+            throw new RuntimeException("Employee ID must not be null!");
+        }
+
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        if (optionalEmployee.isEmpty()) {
+            throw new EmployeeNotFoundException(String.format("Employee not found with ID %s!", id));
+        }
+
+        // Swap details of current employee
+        Employee currentEmployee = optionalEmployee.get();
+        currentEmployee.setName(employee.getName());
+        currentEmployee.setEmail(employee.getEmail());
+        currentEmployee.setImageUrl(employee.getImageUrl());
+        currentEmployee.setJobTitle(employee.getJobTitle());
+        currentEmployee.setPhoneNumber(employee.getPhoneNumber());
+
+        return employeeRepository.save(currentEmployee);
     }
 
     public void deleteEmployee(Long id) {
         if (id == null) {
-            throw new RuntimeException("Employee id must not be null");
+            throw new RuntimeException("Employee ID must not be null");
         }
 
         employeeRepository.deleteById(id);
