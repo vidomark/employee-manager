@@ -1,7 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Employee } from 'src/app/models/Employee';
-import { EmployeeService } from 'src/app/services/employee/employee.service';
+import { Occupation } from 'src/app/models/Occupation';
 
 @Component({
   selector: 'app-employee',
@@ -9,22 +8,15 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
   styleUrls: ['./employee.component.css'],
 })
 export class EmployeeComponent implements OnInit {
-  public employees: Employee[];
+  @Input() employee: Employee;
+  occupationString: string;
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.getEmployees();
-  }
-
-  private getEmployees(): void {
-    this.employeeService.getEmployees().subscribe(
-      (response: Employee[]) => {
-        this.employees = response;
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    );
+    // Capitalize occupation
+    this.occupationString =
+      this.employee.occupation.toString().slice(0, 1).toUpperCase() +
+      this.employee.occupation.toString().slice(1).toLowerCase();
   }
 }

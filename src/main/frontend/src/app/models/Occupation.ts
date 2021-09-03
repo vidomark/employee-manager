@@ -1,5 +1,5 @@
 export enum Occupation {
-  CASHIER,
-  MANAGER,
-  SUPERVISOR,
+  CASHIER = 'Cashier',
+  MANAGER = 'Manager',
+  SUPERVISOR = 'Supervisor',
 }
