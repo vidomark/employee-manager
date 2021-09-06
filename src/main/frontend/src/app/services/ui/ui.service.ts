@@ -1,27 +1,38 @@
 import { Injectable, ViewChild } from '@angular/core';
 import { ModalDirective } from 'angular-bootstrap-md';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { ModalState } from 'src/app/models/ModalState';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UiService {
   private showModal = false;
-  private subject = new BehaviorSubject<boolean>(this.showModal);
+  private showModalSubject = new BehaviorSubject<boolean>(this.showModal);
+  private modalTitle: string;
+  private modalTitleSubject = new Subject<string>();
 
   constructor() {}
 
-  openModal(): void {
+  openModal(modalState: ModalState): void {
+    this.modalTitle =
+      modalState === ModalState.ADD ? 'Add Employee' : 'Update Employee';
     this.showModal = true;
-    this.subject.next(this.showModal);
+
+    this.showModalSubject.next(this.showModal);
+    this.modalTitleSubject.next(this.modalTitle);
   }
 
   closeModal(): void {
     this.showModal = false;
-    this.subject.next(this.showModal);
+    this.showModalSubject.next(this.showModal);
   }
 
-  modalSubject(): Observable<boolean> {
-    return this.subject.asObservable();
+  getShowModalSubject(): Observable<boolean> {
+    return this.showModalSubject.asObservable();
+  }
+
+  getModalTitleSubject(): Observable<string> {
+    return this.modalTitleSubject.asObservable();
   }
 }

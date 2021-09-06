@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalState } from 'src/app/models/ModalState';
+import { UiService } from 'src/app/services/ui/ui.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  constructor() {}
+  constructor(private uiService: UiService) {}
 
   ngOnInit(): void {}
+
+  addEmployee() {
+    this.uiService.openModal(ModalState.ADD);
+  }
 }

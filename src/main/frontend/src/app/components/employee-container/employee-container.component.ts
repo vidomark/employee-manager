@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Employee } from 'src/app/models/Employee';
+import { ModalState } from 'src/app/models/ModalState';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { UiService } from 'src/app/services/ui/ui.service';
 
@@ -18,7 +19,7 @@ export class EmployeeContainerComponent implements OnInit {
     private uiService: UiService
   ) {
     this.uiService
-      .modalSubject()
+      .getShowModalSubject()
       .subscribe((showModal) => (this.showModal = showModal));
   }
 
@@ -38,6 +39,6 @@ export class EmployeeContainerComponent implements OnInit {
   }
 
   updateEmployee(employee: Employee) {
-    this.uiService.openModal();
+    this.uiService.openModal(ModalState.UPDATE);
   }
 }

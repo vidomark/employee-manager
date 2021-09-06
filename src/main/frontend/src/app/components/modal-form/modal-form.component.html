@@ -25,7 +25,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Write to us</h4>
+        <h4 class="modal-title w-100 font-weight-bold">{{ title }}</h4>
         <button
           type="button"
           class="close"
@@ -52,7 +52,7 @@
             mdbInput
             [formControl]="contactFormModalName"
           />
-          <label for="form34">Your name</label>
+          <label for="form34">Name</label>
           <mdb-error
             *ngIf="
               contactFormModalName.invalid &&
@@ -78,7 +78,7 @@
             mdbInput
             [formControl]="contactFormModalEmail"
           />
-          <label for="form29">Your email</label>
+          <label for="form29">Email Address</label>
           <mdb-error
             *ngIf="
               contactFormModalEmail.invalid &&
@@ -105,7 +105,7 @@
             mdbInput
             [formControl]="contactFormModalSubject"
           />
-          <label for="form32">Subject</label>
+          <label for="form32">Job Title</label>
           <mdb-error
             *ngIf="
               contactFormModalSubject.invalid &&
@@ -126,15 +126,41 @@
 
         <div class="md-form">
           <mdb-icon fas icon="pencil-alt" class="prefix grey-text"></mdb-icon>
-          <textarea
+          <input
             type="text"
-            id="form8"
-            class="md-textarea form-control"
-            rows="1"
+            id="form29"
+            class="form-control"
             mdbInput
             [formControl]="contactFormModalMessage"
-          ></textarea>
-          <label for="form8">Your message</label>
+          />
+          <label for="form8">Phone</label>
+          <mdb-error
+            *ngIf="
+              contactFormModalMessage.invalid &&
+              (contactFormModalMessage.dirty || contactFormModalMessage.touched)
+            "
+          >
+            Input invalid
+          </mdb-error>
+          <mdb-success
+            *ngIf="
+              contactFormModalMessage.valid &&
+              (contactFormModalMessage.dirty || contactFormModalMessage.touched)
+            "
+          >
+            Input valid
+          </mdb-success>
+        </div>
+        <div class="md-form">
+          <mdb-icon fas icon="folder" class="prefix grey-text"></mdb-icon>
+          <input
+            type="text"
+            id="form29"
+            class="form-control"
+            mdbInput
+            [formControl]="contactFormModalImageUrl"
+          />
+          <label for="form8">Image URL</label>
           <mdb-error
             *ngIf="
               contactFormModalMessage.invalid &&

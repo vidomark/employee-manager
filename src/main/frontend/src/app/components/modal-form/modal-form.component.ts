@@ -7,7 +7,7 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { UiService } from 'src/app/services/ui/ui.service';
 
@@ -16,14 +16,16 @@ import { UiService } from 'src/app/services/ui/ui.service';
   templateUrl: './modal-form.component.html',
   styleUrls: ['./modal-form.component.css'],
 })
-export class ModalFormComponent implements OnInit, AfterViewInit {
+export class ModalFormComponent implements OnInit {
   @ViewChild('frame') modalFrameRef: ModalDirective;
   @ViewChild('closeModalRef') closeModalRef: ElementRef;
   @Input() showModal: boolean;
   validatingForm: FormGroup;
-  closeSpanId: string;
+  title: string;
 
   constructor(private renderer: Renderer2, private uiService: UiService) {
+    uiService.getModalTitleSubject().subscribe((title) => (this.title = title));
+
     this.renderer.listen('window', 'click', (event: Event) => {
       // If modal is closed
       if (!this.modalFrameRef.isShown) {
@@ -33,24 +35,21 @@ export class ModalFormComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    this.closeSpanId = this.closeModalRef.nativeElement.id;
-  }
-
   ngOnChanges(changes: any) {
     this.showModal = changes.showModal.currentValue;
     if (this.showModal) {
-      this.uiService.openModal();
       this.modalFrameRef.show();
     }
   }
 
   ngOnInit() {
     this.validatingForm = new FormGroup({
-      contactFormModalName: new FormControl('', Validators.required),
-      contactFormModalEmail: new FormControl('', Validators.email),
-      contactFormModalSubject: new FormControl('', Validators.required),
-      contactFormModalMessage: new FormControl('', Validators.required),
+      //contactFormModalName: new FormControl('', Validators.required),
+      contactFormModalName: new FormControl(''),
+      contactFormModalEmail: new FormControl(''),
+      contactFormModalSubject: new FormControl(''),
+      contactFormModalMessage: new FormControl(''),
+      contactFormModalImageUrl: new FormControl(''),
     });
   }
 
@@ -68,5 +67,9 @@ export class ModalFormComponent implements OnInit, AfterViewInit {
 
   get contactFormModalMessage() {
     return this.validatingForm.get('contactFormModalMessage') as FormControl;
+  }
+
+  get contactFormModalImageUrl() {
+    return this.validatingForm.get('contactFormModalImageUrl') as FormControl;
   }
 }
