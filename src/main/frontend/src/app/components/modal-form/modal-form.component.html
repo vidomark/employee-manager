@@ -28,7 +28,7 @@
           >
         </button>
       </div>
-      <div [formGroup]="validatingForm" class="modal-body mx-3">
+      <div [formGroup]="employeeForm" class="modal-body mx-3">
         <div class="md-form mb-5">
           <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
           <input
@@ -36,21 +36,13 @@
             id="form34"
             class="form-control"
             mdbInput
-            [formControl]="contactFormModalName"
+            [formControl]="name"
           />
           <label for="form34">Name</label>
-          <mdb-error
-            *ngIf="
-              contactFormModalName.invalid &&
-              (contactFormModalName.dirty || contactFormModalName.touched)
-            "
+          <mdb-error *ngIf="name.invalid && (name.dirty || name.touched)"
             >Input invalid
           </mdb-error>
-          <mdb-success
-            *ngIf="
-              contactFormModalName.valid &&
-              (contactFormModalName.dirty || contactFormModalName.touched)
-            "
+          <mdb-success *ngIf="name.valid && (name.dirty || name.touched)"
             >Input valid
           </mdb-success>
         </div>
@@ -62,22 +54,13 @@
             id="form29"
             class="form-control"
             mdbInput
-            [formControl]="contactFormModalEmail"
+            [formControl]="email"
           />
           <label for="form29">Email Address</label>
-          <mdb-error
-            *ngIf="
-              contactFormModalEmail.invalid &&
-              (contactFormModalEmail.dirty || contactFormModalEmail.touched)
-            "
-          >
+          <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">
             Input invalid
           </mdb-error>
-          <mdb-success
-            *ngIf="
-              contactFormModalEmail.valid &&
-              (contactFormModalEmail.dirty || contactFormModalEmail.touched)
-            "
+          <mdb-success *ngIf="email.valid && (email.dirty || email.touched)"
             >Input valid
           </mdb-success>
         </div>
@@ -89,23 +72,19 @@
             id="form32"
             class="form-control"
             mdbInput
-            [formControl]="contactFormModalOccupation"
+            [formControl]="occupation"
           />
           <label for="form32">Occupation</label>
           <mdb-error
             *ngIf="
-              contactFormModalOccupation?.invalid &&
-              (contactFormModalOccupation.dirty ||
-                contactFormModalOccupation.touched)
+              occupation?.invalid && (occupation.dirty || occupation.touched)
             "
           >
             Input invalid
           </mdb-error>
           <mdb-success
             *ngIf="
-              contactFormModalOccupation?.valid &&
-              (contactFormModalOccupation?.dirty ||
-                contactFormModalOccupation?.touched)
+              occupation?.valid && (occupation?.dirty || occupation?.touched)
             "
           >
             Input valid
@@ -119,21 +98,20 @@
             id="form29"
             class="form-control"
             mdbInput
-            [formControl]="contactFormModalPhone"
+            [formControl]="phoneNumber"
           />
           <label for="form8">Phone</label>
           <mdb-error
             *ngIf="
-              contactFormModalPhone?.invalid &&
-              (contactFormModalPhone?.dirty || contactFormModalPhone?.touched)
+              phoneNumber?.invalid &&
+              (phoneNumber?.dirty || phoneNumber?.touched)
             "
           >
             Input invalid
           </mdb-error>
           <mdb-success
             *ngIf="
-              contactFormModalPhone?.valid &&
-              (contactFormModalPhone?.dirty || contactFormModalPhone?.touched)
+              phoneNumber?.valid && (phoneNumber?.dirty || phoneNumber?.touched)
             "
           >
             Input valid
@@ -146,24 +124,16 @@
             id="form29"
             class="form-control"
             mdbInput
-            [formControl]="contactFormModalImageUrl"
+            [formControl]="imageUrl"
           />
           <label for="form8">Image URL</label>
           <mdb-error
-            *ngIf="
-              contactFormModalImageUrl?.invalid &&
-              (contactFormModalImageUrl?.dirty ||
-                contactFormModalImageUrl?.touched)
-            "
+            *ngIf="imageUrl?.invalid && (imageUrl?.dirty || imageUrl?.touched)"
           >
             Input invalid
           </mdb-error>
           <mdb-success
-            *ngIf="
-              contactFormModalImageUrl?.valid &&
-              (contactFormModalImageUrl?.dirty ||
-                contactFormModalImageUrl?.touched)
-            "
+            *ngIf="imageUrl?.valid && (imageUrl?.dirty || imageUrl?.touched)"
           >
             Input valid
           </mdb-success>
@@ -171,7 +141,7 @@
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button
-          (click)="submitForm(validatingForm)"
+          (click)="submitForm(employeeForm)"
           mdbBtn
           color="unique"
           class="waves-light"

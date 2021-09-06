@@ -22,10 +22,10 @@ import { map } from 'rxjs/operators';
 export class ModalFormComponent implements OnInit {
   @ViewChild('frame') modalFrameRef: ModalDirective;
   @ViewChild('closeModalRef') closeModalRef: ElementRef;
-  @Output() onChangeEvent = new EventEmitter<FormGroup>();
+  @Output() onSubmitForm = new EventEmitter<FormGroup>();
   @Input() showModal: boolean;
-  private subject = new Subject(); // For emitting form data
-  validatingForm: FormGroup;
+  private subject = new Subject();
+  employeeForm: FormGroup;
   title: string;
 
   constructor(private renderer: Renderer2, private uiService: UiService) {
@@ -48,41 +48,41 @@ export class ModalFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.validatingForm = new FormGroup({
+    this.employeeForm = new FormGroup({
       //contactFormModalName: new FormControl('', Validators.required),
-      contactFormModalName: new FormControl(''),
-      contactFormModalEmail: new FormControl(''),
-      contactFormModalOccupation: new FormControl(''),
-      contactFormModalPhone: new FormControl(''),
-      contactFormModalImageUrl: new FormControl(''),
+      name: new FormControl(''),
+      email: new FormControl(''),
+      occupation: new FormControl(''),
+      phoneNumber: new FormControl(''),
+      imageUrl: new FormControl(''),
     });
 
     this.subject
-      .pipe(map(() => this.validatingForm.value))
-      .subscribe((formData) => this.onChangeEvent.emit(formData));
+      .pipe(map(() => this.employeeForm.value))
+      .subscribe((formData) => this.onSubmitForm.emit(formData));
   }
 
   submitForm(form: FormGroup): void {
     this.subject.next();
   }
 
-  get contactFormModalName() {
-    return this.validatingForm.get('contactFormModalName') as FormControl;
+  get name() {
+    return this.employeeForm.get('name') as FormControl;
   }
 
-  get contactFormModalEmail() {
-    return this.validatingForm.get('contactFormModalEmail') as FormControl;
+  get email() {
+    return this.employeeForm.get('email') as FormControl;
   }
 
-  get contactFormModalOccupation() {
-    return this.validatingForm.get('contactFormModalOccupation') as FormControl;
+  get occupation() {
+    return this.employeeForm.get('occupation') as FormControl;
   }
 
-  get contactFormModalPhone() {
-    return this.validatingForm.get('contactFormModalPhone') as FormControl;
+  get phoneNumber() {
+    return this.employeeForm.get('phoneNumber') as FormControl;
   }
 
-  get contactFormModalImageUrl() {
-    return this.validatingForm.get('contactFormModalImageUrl') as FormControl;
+  get imageUrl() {
+    return this.employeeForm.get('imageUrl') as FormControl;
   }
 }

@@ -53,11 +53,7 @@ export class EmployeeContainerComponent implements OnInit {
     );
   }
 
-  submitForm(event: any) {
-    console.log(event);
-  }
-
-  formChange(employeeForm: any) {
+  submitForm(employeeForm: any) {
     console.log(employeeForm);
   }
 }
