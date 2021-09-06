@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Employee } from 'src/app/models/Employee';
 import { Occupation } from 'src/app/models/Occupation';
 
@@ -9,6 +9,7 @@ import { Occupation } from 'src/app/models/Occupation';
 })
 export class EmployeeComponent implements OnInit {
   @Input() employee: Employee;
+  @Output() onUpdateEmployee = new EventEmitter();
   occupationString: string;
 
   constructor() {}
@@ -18,5 +19,9 @@ export class EmployeeComponent implements OnInit {
     this.occupationString =
       this.employee.occupation.toString().slice(0, 1).toUpperCase() +
       this.employee.occupation.toString().slice(1).toLowerCase();
+  }
+
+  updateEmployee(employee: Employee) {
+    this.onUpdateEmployee.emit(employee);
   }
 }

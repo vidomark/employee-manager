@@ -1,6 +1,8 @@
 <div class="container">
+  <app-modal-form [showModal]="showModal"></app-modal-form>
   <app-employee
     *ngFor="let employee of employees"
     [employee]="employee"
+    (onUpdateEmployee)="updateEmployee(employee)"
   ></app-employee>
 </div>
