@@ -6,7 +6,7 @@
   <app-employee
     *ngFor="let employee of employees"
     [employee]="employee"
-    (onUpdateEmployee)="updateEmployee()"
+    (onUpdateEmployee)="updateEmployee(employee)"
     (onDeleteEmployee)="deleteEmployee(employee)"
   ></app-employee>
 </div>

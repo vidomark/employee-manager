@@ -9,18 +9,17 @@ import { ModalState } from 'src/app/models/ModalState';
 export class UiService {
   private showModal = false;
   private showModalSubject = new BehaviorSubject<boolean>(this.showModal);
-  private modalTitle: string;
-  private modalTitleSubject = new Subject<string>();
+  private modalState: ModalState;
+  private modalStateSubject = new Subject<ModalState>();
 
   constructor() {}
 
   openModal(modalState: ModalState): void {
-    this.modalTitle =
-      modalState === ModalState.ADD ? 'Add Employee' : 'Update Employee';
+    this.modalState = modalState;
     this.showModal = true;
 
     this.showModalSubject.next(this.showModal);
-    this.modalTitleSubject.next(this.modalTitle);
+    this.modalStateSubject.next(this.modalState);
   }
 
   closeModal(): void {
@@ -32,7 +31,7 @@ export class UiService {
     return this.showModalSubject.asObservable();
   }
 
-  getModalTitleSubject(): Observable<string> {
-    return this.modalTitleSubject.asObservable();
+  getModalStateSubject(): Observable<ModalState> {
+    return this.modalStateSubject.asObservable();
   }
 }

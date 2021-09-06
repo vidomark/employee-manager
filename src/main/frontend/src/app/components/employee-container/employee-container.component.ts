@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 import { Employee } from 'src/app/models/Employee';
 import { ModalState } from 'src/app/models/ModalState';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
@@ -14,16 +14,22 @@ import { UiService } from 'src/app/services/ui/ui.service';
 export class EmployeeContainerComponent implements OnInit {
   public employees: Employee[];
   public showModal: boolean;
-  public form: any;
   public employeeForm: FormGroup;
+  public employeeFormState: ModalState;
 
   constructor(
     private employeeService: EmployeeService,
     private uiService: UiService
   ) {
+    // For toggling employee form
     this.uiService
       .getShowModalSubject()
       .subscribe((showModal) => (this.showModal = showModal));
+
+    // For tracking employee state (add/update)
+    this.uiService
+      .getModalStateSubject()
+      .subscribe((modalState) => (this.employeeFormState = modalState));
   }
 
   ngOnInit(): void {
@@ -41,7 +47,9 @@ export class EmployeeContainerComponent implements OnInit {
     );
   }
 
-  updateEmployee() {
+  addEmployee(employee: Employee) {}
+
+  updateEmployee(employee: Employee) {
     this.uiService.openModal(ModalState.UPDATE);
   }
 
@@ -53,7 +61,14 @@ export class EmployeeContainerComponent implements OnInit {
     );
   }
 
-  submitForm(employeeForm: any) {
-    console.log(employeeForm);
+  submitForm(employee: any) {
+    const newEmployee = employee as Employee;
+    if (this.employeeFormState === ModalState.ADD) {
+      this.employeeService
+        .addEmployee(employee)
+        .subscribe((employee) => this.employees.push(employee));
+    } else if (this.employeeFormState === ModalState.UPDATE) {
+      this.employeeService.updateEmployee(employee).subscribe();
+    }
   }
 }

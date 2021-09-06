@@ -13,6 +13,7 @@ import { ModalDirective } from 'angular-bootstrap-md';
 import { Subject } from 'rxjs';
 import { UiService } from 'src/app/services/ui/ui.service';
 import { map } from 'rxjs/operators';
+import { ModalState } from 'src/app/models/ModalState';
 
 @Component({
   selector: 'app-modal-form',
@@ -29,7 +30,14 @@ export class ModalFormComponent implements OnInit {
   title: string;
 
   constructor(private renderer: Renderer2, private uiService: UiService) {
-    uiService.getModalTitleSubject().subscribe((title) => (this.title = title));
+    // Title of form based on state of the form
+    uiService
+      .getModalStateSubject()
+      .subscribe(
+        (modalState) =>
+          (this.title =
+            modalState === ModalState.ADD ? 'Add Employe' : 'Update Employee')
+      );
 
     this.renderer.listen('window', 'click', (event: Event) => {
       // If modal is closed
@@ -57,6 +65,7 @@ export class ModalFormComponent implements OnInit {
       imageUrl: new FormControl(''),
     });
 
+    // Bind to subject for emitting form data
     this.subject
       .pipe(map(() => this.employeeForm.value))
       .subscribe((formData) => this.onSubmitForm.emit(formData));
@@ -64,6 +73,9 @@ export class ModalFormComponent implements OnInit {
 
   submitForm(form: FormGroup): void {
     this.subject.next();
+    this.employeeForm.reset();
+    this.uiService.closeModal();
+    this.modalFrameRef.hide();
   }
 
   get name() {
