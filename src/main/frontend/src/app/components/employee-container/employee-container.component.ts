@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Employee } from 'src/app/models/Employee';
 import { ModalState } from 'src/app/models/ModalState';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
@@ -13,6 +14,8 @@ import { UiService } from 'src/app/services/ui/ui.service';
 export class EmployeeContainerComponent implements OnInit {
   public employees: Employee[];
   public showModal: boolean;
+  public form: any;
+  public employeeForm: FormGroup;
 
   constructor(
     private employeeService: EmployeeService,
@@ -38,7 +41,23 @@ export class EmployeeContainerComponent implements OnInit {
     );
   }
 
-  updateEmployee(employee: Employee) {
+  updateEmployee() {
     this.uiService.openModal(ModalState.UPDATE);
+  }
+
+  deleteEmployee(deletedEmployee: Employee) {
+    const id = deletedEmployee.id as number;
+    this.employeeService.deleteEmployee(id).subscribe();
+    this.employees = this.employees.filter(
+      (employee) => employee != deletedEmployee
+    );
+  }
+
+  submitForm(event: any) {
+    console.log(event);
+  }
+
+  formChange(employeeForm: any) {
+    console.log(employeeForm);
   }
 }

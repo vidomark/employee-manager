@@ -1,8 +1,13 @@
 <div class="container">
-  <app-modal-form [showModal]="showModal"></app-modal-form>
+  <app-modal-form
+    (onSubmitForm)="submitForm($event)"
+    (onChangeEvent)="formChange($event)"
+    [showModal]="showModal"
+  ></app-modal-form>
   <app-employee
     *ngFor="let employee of employees"
     [employee]="employee"
-    (onUpdateEmployee)="updateEmployee(employee)"
+    (onUpdateEmployee)="updateEmployee()"
+    (onDeleteEmployee)="deleteEmployee(employee)"
   ></app-employee>
 </div>

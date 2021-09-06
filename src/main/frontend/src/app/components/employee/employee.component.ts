@@ -9,7 +9,8 @@ import { Occupation } from 'src/app/models/Occupation';
 })
 export class EmployeeComponent implements OnInit {
   @Input() employee: Employee;
-  @Output() onUpdateEmployee = new EventEmitter();
+  @Output() onUpdateEmployee = new EventEmitter<Employee>();
+  @Output() onDeleteEmployee = new EventEmitter<Employee>();
   occupationString: string;
 
   constructor() {}
@@ -23,5 +24,9 @@ export class EmployeeComponent implements OnInit {
 
   updateEmployee(employee: Employee) {
     this.onUpdateEmployee.emit(employee);
+  }
+
+  deleteEmployee(employee: Employee) {
+    this.onDeleteEmployee.emit(employee);
   }
 }
