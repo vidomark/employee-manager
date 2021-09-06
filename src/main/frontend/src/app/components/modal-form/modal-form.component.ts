@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
@@ -9,6 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ModalDirective } from 'angular-bootstrap-md';
+import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { UiService } from 'src/app/services/ui/ui.service';
 
 @Component({
@@ -23,7 +23,11 @@ export class ModalFormComponent implements OnInit {
   validatingForm: FormGroup;
   title: string;
 
-  constructor(private renderer: Renderer2, private uiService: UiService) {
+  constructor(
+    private renderer: Renderer2,
+    private uiService: UiService,
+    private employeeService: EmployeeService
+  ) {
     uiService.getModalTitleSubject().subscribe((title) => (this.title = title));
 
     this.renderer.listen('window', 'click', (event: Event) => {
@@ -47,10 +51,28 @@ export class ModalFormComponent implements OnInit {
       //contactFormModalName: new FormControl('', Validators.required),
       contactFormModalName: new FormControl(''),
       contactFormModalEmail: new FormControl(''),
-      contactFormModalSubject: new FormControl(''),
-      contactFormModalMessage: new FormControl(''),
+      contactFormModalOccupation: new FormControl(''),
+      contactFormModalPhone: new FormControl(''),
       contactFormModalImageUrl: new FormControl(''),
     });
+    this.validatingForm.valueChanges.subscribe();
+  }
+
+  submitForm() {
+    if (this.title === 'Add Employee') {
+      const newEmployee = {
+        name: this.contactFormModalName.value,
+        email: this.contactFormModalEmail.value,
+        occupation: this.contactFormModalOccupation.value,
+        phoneNumber: this.contactFormModalPhone.value,
+        imageUrl: this.contactFormModalImageUrl.value,
+      };
+      this.employeeService
+        .addEmployee(newEmployee)
+        .subscribe((employee) => console.log(employee));
+    } else if (this.title === 'Update Employee') {
+      console.log('UPDATE');
+    }
   }
 
   get contactFormModalName() {
@@ -61,12 +83,12 @@ export class ModalFormComponent implements OnInit {
     return this.validatingForm.get('contactFormModalEmail') as FormControl;
   }
 
-  get contactFormModalSubject() {
-    return this.validatingForm.get('contactFormModalSubject') as FormControl;
+  get contactFormModalOccupation() {
+    return this.validatingForm.get('contactFormModalOccupation') as FormControl;
   }
 
-  get contactFormModalMessage() {
-    return this.validatingForm.get('contactFormModalMessage') as FormControl;
+  get contactFormModalPhone() {
+    return this.validatingForm.get('contactFormModalPhone') as FormControl;
   }
 
   get contactFormModalImageUrl() {

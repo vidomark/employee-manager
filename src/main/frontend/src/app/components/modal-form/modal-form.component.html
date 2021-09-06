@@ -103,21 +103,23 @@
             id="form32"
             class="form-control"
             mdbInput
-            [formControl]="contactFormModalSubject"
+            [formControl]="contactFormModalOccupation"
           />
-          <label for="form32">Job Title</label>
+          <label for="form32">Occupation</label>
           <mdb-error
             *ngIf="
-              contactFormModalSubject.invalid &&
-              (contactFormModalSubject.dirty || contactFormModalSubject.touched)
+              contactFormModalOccupation?.invalid &&
+              (contactFormModalOccupation.dirty ||
+                contactFormModalOccupation.touched)
             "
           >
             Input invalid
           </mdb-error>
           <mdb-success
             *ngIf="
-              contactFormModalSubject.valid &&
-              (contactFormModalSubject.dirty || contactFormModalSubject.touched)
+              contactFormModalOccupation?.valid &&
+              (contactFormModalOccupation?.dirty ||
+                contactFormModalOccupation?.touched)
             "
           >
             Input valid
@@ -131,21 +133,21 @@
             id="form29"
             class="form-control"
             mdbInput
-            [formControl]="contactFormModalMessage"
+            [formControl]="contactFormModalPhone"
           />
           <label for="form8">Phone</label>
           <mdb-error
             *ngIf="
-              contactFormModalMessage.invalid &&
-              (contactFormModalMessage.dirty || contactFormModalMessage.touched)
+              contactFormModalPhone?.invalid &&
+              (contactFormModalPhone?.dirty || contactFormModalPhone?.touched)
             "
           >
             Input invalid
           </mdb-error>
           <mdb-success
             *ngIf="
-              contactFormModalMessage.valid &&
-              (contactFormModalMessage.dirty || contactFormModalMessage.touched)
+              contactFormModalPhone?.valid &&
+              (contactFormModalPhone?.dirty || contactFormModalPhone?.touched)
             "
           >
             Input valid
@@ -163,16 +165,18 @@
           <label for="form8">Image URL</label>
           <mdb-error
             *ngIf="
-              contactFormModalMessage.invalid &&
-              (contactFormModalMessage.dirty || contactFormModalMessage.touched)
+              contactFormModalImageUrl?.invalid &&
+              (contactFormModalImageUrl?.dirty ||
+                contactFormModalImageUrl?.touched)
             "
           >
             Input invalid
           </mdb-error>
           <mdb-success
             *ngIf="
-              contactFormModalMessage.valid &&
-              (contactFormModalMessage.dirty || contactFormModalMessage.touched)
+              contactFormModalImageUrl?.valid &&
+              (contactFormModalImageUrl?.dirty ||
+                contactFormModalImageUrl?.touched)
             "
           >
             Input valid
@@ -180,7 +184,13 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button mdbBtn color="unique" class="waves-light" mdbWavesEffect>
+        <button
+          (click)="submitForm()"
+          mdbBtn
+          color="unique"
+          class="waves-light"
+          mdbWavesEffect
+        >
           Send
           <mdb-icon far icon="paper-plane" class="ml-1"></mdb-icon>
         </button>
