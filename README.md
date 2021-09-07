@@ -1,6 +1,6 @@
 # Employee Manager
 
- The application functions as an encyclopedia to the pokemon universe.
+ The application is an employee management system.
 
 ## Installation (docker)
 
