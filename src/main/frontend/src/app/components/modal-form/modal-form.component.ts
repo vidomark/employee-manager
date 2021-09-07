@@ -72,7 +72,9 @@ export class ModalFormComponent implements OnInit {
   }
 
   submitForm(form: FormGroup): void {
+    // Emit form
     this.subject.next();
+    // Reset form
     this.employeeForm.reset();
     this.uiService.closeModal();
     this.modalFrameRef.hide();

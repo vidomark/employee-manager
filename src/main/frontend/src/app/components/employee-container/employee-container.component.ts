@@ -14,8 +14,9 @@ import { UiService } from 'src/app/services/ui/ui.service';
 export class EmployeeContainerComponent implements OnInit {
   public employees: Employee[];
   public showModal: boolean;
-  public employeeForm: FormGroup;
   public employeeFormState: ModalState;
+  // For updating employee
+  private updatedEmployee: Employee;
 
   constructor(
     private employeeService: EmployeeService,
@@ -47,10 +48,32 @@ export class EmployeeContainerComponent implements OnInit {
     );
   }
 
-  addEmployee(employee: Employee) {}
+  addEmployee(employee: Employee) {
+    this.uiService.openModal(ModalState.ADD);
+    this.employeeService
+      .addEmployee(employee)
+      .subscribe((employee) => this.employees.push(employee));
+  }
 
   updateEmployee(employee: Employee) {
+    // For updating empoyee with given id
+    const id = this.updatedEmployee.id;
+    // Set id for updated employee (form doesn't contain id)
+    employee.id = id;
+    // Open employee form
     this.uiService.openModal(ModalState.UPDATE);
+
+    const index = this.employees.findIndex((emp) => emp.id === employee.id);
+
+    this.employeeService
+      .updateEmployee(employee)
+      .subscribe((employee) => (this.employees[index] = employee));
+  }
+
+  setUpdatedEmployee(employee: Employee) {
+    // Open employee form
+    this.uiService.openModal(ModalState.UPDATE);
+    this.updatedEmployee = employee;
   }
 
   deleteEmployee(deletedEmployee: Employee) {
@@ -64,11 +87,9 @@ export class EmployeeContainerComponent implements OnInit {
   submitForm(employee: any) {
     const newEmployee = employee as Employee;
     if (this.employeeFormState === ModalState.ADD) {
-      this.employeeService
-        .addEmployee(employee)
-        .subscribe((employee) => this.employees.push(employee));
+      this.addEmployee(newEmployee);
     } else if (this.employeeFormState === ModalState.UPDATE) {
-      this.employeeService.updateEmployee(employee).subscribe();
+      this.updateEmployee(newEmployee);
     }
   }
 }
