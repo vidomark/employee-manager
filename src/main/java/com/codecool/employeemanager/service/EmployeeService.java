@@ -52,7 +52,7 @@ public class EmployeeService {
         currentEmployee.setName(employee.getName());
         currentEmployee.setEmail(employee.getEmail());
         currentEmployee.setImageUrl(employee.getImageUrl());
-        currentEmployee.setJobTitle(employee.getJobTitle());
+        currentEmployee.setOccupation(employee.getOccupation());
         currentEmployee.setPhoneNumber(employee.getPhoneNumber());
 
         return employeeRepository.save(currentEmployee);

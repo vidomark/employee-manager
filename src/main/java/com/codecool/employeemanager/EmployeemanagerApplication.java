@@ -1,7 +1,7 @@
 package com.codecool.employeemanager;
 
 import com.codecool.employeemanager.model.Employee;
-import com.codecool.employeemanager.model.JobTitle;
+import com.codecool.employeemanager.model.Occupation;
 import com.codecool.employeemanager.repository.EmployeeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,7 +30,7 @@ public class EmployeemanagerApplication {
 					.email("john.doe@gmail.com")
 					.name("John Doe")
 					.phoneNumber("06706686097")
-					.jobTitle(JobTitle.CASHIER)
+					.occupation(Occupation.CASHIER)
 					.imageUrl("https://bootdey.com/img/Content/avatar/avatar1.png")
 					.build();
 
@@ -38,7 +38,7 @@ public class EmployeemanagerApplication {
 					.email("markus.schumacher@gmail.com")
 					.name("Markus Schumacher")
 					.phoneNumber("06708766037")
-					.jobTitle(JobTitle.MANAGER)
+					.occupation(Occupation.MANAGER)
 					.imageUrl("https://bootdey.com/img/Content/avatar/avatar2.png")
 					.build();
 
@@ -46,7 +46,7 @@ public class EmployeemanagerApplication {
 					.email("lewis.christine@gmail.com")
 					.name("Lewis Christine")
 					.phoneNumber("06708426137")
-					.jobTitle(JobTitle.SUPERVISOR)
+					.occupation(Occupation.SUPERVISOR)
 					.imageUrl("https://bootdey.com/img/Content/avatar/avatar3.png")
 					.build();
 
