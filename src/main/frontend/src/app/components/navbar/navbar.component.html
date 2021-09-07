@@ -5,19 +5,23 @@
 >
   <!-- Navbar brand -->
   <mdb-navbar-brand
-    ><a class="navbar-brand" href="#">Employee Manager</a></mdb-navbar-brand
+    ><a class="navbar-brand" href="">Employee Manager</a></mdb-navbar-brand
   >
 
   <!-- Collapsible content -->
   <links>
     <!-- Links -->
     <ul class="navbar-nav mr-auto">
-      <!-- <li class="nav-item active">
-        <a class="nav-link waves-light" mdbWavesEffect
-          >Home<span class="sr-only">(current)</span></a
+      <li *ngIf="!hasRoute('/employee')" class="nav-item">
+        <a routerLink="/employee" class="nav-link waves-light" mdbWavesEffect
+          >Employees</a
         >
-      </li> -->
-      <li (click)="addEmployee()" class="nav-item">
+      </li>
+      <li
+        *ngIf="hasRoute('/employee')"
+        (click)="addEmployee()"
+        class="nav-item"
+      >
         <a class="nav-link waves-light" mdbWavesEffect>Add Employee</a>
       </li>
 

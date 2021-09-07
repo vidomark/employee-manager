@@ -18,8 +18,8 @@ export class EmployeeComponent implements OnInit {
   ngOnInit(): void {
     // Capitalize occupation
     this.occupationString =
-      this.employee.occupation.toString().slice(0, 1).toUpperCase() +
-      this.employee.occupation.toString().slice(1).toLowerCase();
+      this.employee.occupation?.toString().slice(0, 1).toUpperCase() +
+      this.employee.occupation?.toString().slice(1).toLowerCase();
   }
 
   updateEmployee(employee: Employee) {
