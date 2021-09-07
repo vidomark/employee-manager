@@ -24,5 +24,5 @@ public class Employee implements Serializable {
     private String phoneNumber;
     private String imageUrl;
     @Enumerated(value = EnumType.STRING)
-    private JobTitle jobTitle;
+    private Occupation occupation;
 }

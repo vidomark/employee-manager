@@ -1,6 +1,6 @@
 package com.codecool.employeemanager.model;
 
-public enum JobTitle {
+public enum Occupation {
 
     MANAGER, SUPERVISOR, CASHIER
 }
