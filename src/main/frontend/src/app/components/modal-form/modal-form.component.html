@@ -1,0 +1,156 @@
+<div
+  mdbModal
+  #frame="mdbModal"
+  class="modal fade left"
+  id="frameModalTop"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">{{ title }}</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="frame.hide()"
+        >
+          <span
+            #closeModalRef
+            (click)="(showModal)"
+            id="closeModalButton"
+            aria-hidden="true"
+            >&times;</span
+          >
+        </button>
+      </div>
+      <div [formGroup]="employeeForm" class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
+          <input
+            type="text"
+            id="form34"
+            class="form-control"
+            mdbInput
+            [formControl]="name"
+          />
+          <label for="form34">Name</label>
+          <mdb-error *ngIf="name.invalid && (name.dirty || name.touched)"
+            >Input invalid
+          </mdb-error>
+          <mdb-success *ngIf="name.valid && (name.dirty || name.touched)"
+            >Input valid
+          </mdb-success>
+        </div>
+
+        <div class="md-form mb-5">
+          <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
+          <input
+            type="email"
+            id="form29"
+            class="form-control"
+            mdbInput
+            [formControl]="email"
+          />
+          <label for="form29">Email Address</label>
+          <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">
+            Input invalid
+          </mdb-error>
+          <mdb-success *ngIf="email.valid && (email.dirty || email.touched)"
+            >Input valid
+          </mdb-success>
+        </div>
+
+        <div class="md-form mb-5">
+          <mdb-icon fas icon="tag" class="prefix grey-text"></mdb-icon>
+          <input
+            type="text"
+            id="form32"
+            class="form-control"
+            mdbInput
+            [formControl]="occupation"
+          />
+          <label for="form32">Occupation</label>
+          <mdb-error
+            *ngIf="
+              occupation?.invalid && (occupation.dirty || occupation.touched)
+            "
+          >
+            Input invalid
+          </mdb-error>
+          <mdb-success
+            *ngIf="
+              occupation?.valid && (occupation?.dirty || occupation?.touched)
+            "
+          >
+            Input valid
+          </mdb-success>
+        </div>
+
+        <div class="md-form">
+          <mdb-icon fas icon="pencil-alt" class="prefix grey-text"></mdb-icon>
+          <input
+            type="text"
+            id="form29"
+            class="form-control"
+            mdbInput
+            [formControl]="phoneNumber"
+          />
+          <label for="form8">Phone</label>
+          <mdb-error
+            *ngIf="
+              phoneNumber?.invalid &&
+              (phoneNumber?.dirty || phoneNumber?.touched)
+            "
+          >
+            Input invalid
+          </mdb-error>
+          <mdb-success
+            *ngIf="
+              phoneNumber?.valid && (phoneNumber?.dirty || phoneNumber?.touched)
+            "
+          >
+            Input valid
+          </mdb-success>
+        </div>
+        <div class="md-form">
+          <mdb-icon fas icon="folder" class="prefix grey-text"></mdb-icon>
+          <input
+            type="text"
+            id="form29"
+            class="form-control"
+            mdbInput
+            [formControl]="imageUrl"
+          />
+          <label for="form8">Image URL</label>
+          <mdb-error
+            *ngIf="imageUrl?.invalid && (imageUrl?.dirty || imageUrl?.touched)"
+          >
+            Input invalid
+          </mdb-error>
+          <mdb-success
+            *ngIf="imageUrl?.valid && (imageUrl?.dirty || imageUrl?.touched)"
+          >
+            Input valid
+          </mdb-success>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button
+          (click)="submitForm(employeeForm)"
+          mdbBtn
+          color="unique"
+          class="waves-light"
+          mdbWavesEffect
+        >
+          Send
+          <mdb-icon far icon="paper-plane" class="ml-1"></mdb-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
